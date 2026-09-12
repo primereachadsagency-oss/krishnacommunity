@@ -1,64 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Krishna Crypto™</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-  :root { --gold: #f5c542; --gold-soft: #ffe9a8; }
-  * { -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'Manrope', sans-serif; background: #08080c; color: #fff; overflow-x: hidden; }
-  .font-display { font-family: 'Sora', sans-serif; }
-  
-  .mesh { position: fixed; inset: 0; z-index: -2; background: radial-gradient(50% 30% at 50% 0%, rgba(245,197,66,0.15), transparent 70%); }
-  .grain { position: fixed; inset: 0; z-index: -1; opacity: 0.4; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); mix-blend-mode: overlay; }
-  
-  /* Logo Ring & Profile Image Container */
-  .logo-ring { position: absolute; inset: -8px; border-radius: 50%; border: 1px solid rgba(245,197,66,0.3); animation: spin 20s linear infinite; }
-  .logo-ring::before { content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
-  .logo-core { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); box-shadow: 0 0 30px rgba(245,197,66,0.3); animation: pulse 3s ease-in-out infinite; display: flex; align-items: center; justify-content: center; background: #111; }
-  .logo-core img { width: 100%; height: 100%; object-fit: cover; }
-  
-  /* Buttons & Badges */
-  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(245,197,66,0.08); border: 1px solid rgba(245,197,66,0.2); color: var(--gold-soft); font-size: 10px; letter-spacing: 0.2em; font-weight: 600; }
-  .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: blink 1.4s infinite; }
-  
-  .cta { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; font-weight: 700; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 25px rgba(34,197,94,0.35); transition: transform 0.2s; text-decoration: none; }
-  .cta::before { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%); transform: translateX(-100%); animation: shine 3.5s infinite; }
-  .cta:active { transform: scale(0.98); }
-  
-  .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(10px); }
-  .stat-num { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 28px; background: linear-gradient(180deg, #fff, #aaa); -webkit-background-clip: text; color: transparent; transition: all 0.3s ease; }
-  
-  /* Sub Count Live Pulse Animation */
-  .sub-pulse { animation: countGlow 0.5s ease-out; }
-  @keyframes countGlow {
-    0% { transform: scale(1.1); filter: drop-shadow(0 0 8px var(--gold)); }
-    100% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
-  }
-
-  /* Stars & Particles Container */
-  .stars-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-  .star { position: absolute; background: #fff; border-radius: 50%; animation: twinkle var(--duration) ease-in-out infinite; opacity: var(--opacity); }
-  .particle { position: absolute; border-radius: 50%; background: var(--gold); animation: rise linear infinite; }
-  
-  /* Popup Styles */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 50; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-  .modal-overlay.active { opacity: 1; pointer-events: auto; }
-  .modal-box { transform: scale(0.85); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-  .modal-overlay.active .modal-box { transform: scale(1); }
-
-  /* Keyframe Animations */
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @keyframes pulse { 0%,100% { box-shadow: 0 0 30px rgba(245,197,66,0.3); } 50% { box-shadow: 0 0 50px rgba(245,197,66,0.5); } }
-  @keyframes blink { 50% { opacity: 0.3; } }
-  @keyframes shine { 0%, 100% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
-  @keyframes rise { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.3; } 100% { transform: translateY(-10vh) scale(1); opacity: 0; } }
-  @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.4); box-shadow: 0 0 6px rgba(245,197,66,0.8); } }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krishna Crypto</title>
 
 <!-- Meta Pixel Code -->
 <script>
@@ -70,223 +15,422 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1783957089425918');
+fbq('init', '1402641208602757');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1783957089425918&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=1402641208602757&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-
-</head>
-<body class="min-h-screen flex flex-col items-center px-6 pt-8 pb-12">
-  <div class="mesh"></div>
-  <div class="grain"></div>
-  <div class="stars-container" id="starsContainer"></div>
-
-  <!-- Top Nav -->
-  <div class="w-full max-w-sm flex justify-between items-center mb-8">
-    <div class="flex items-center gap-2">
-      <div class="w-7 h-7 rounded-md flex items-center justify-center" style="background: linear-gradient(135deg, #f5c542, #b8860b);"><span class="font-display font-extrabold text-xs text-[#2b1f00]">KC</span></div>
-      <span class="font-display font-semibold text-sm">Krishna Crypto</span>
-    </div>
-    <!-- Contact Button in Header -->
-    <button onclick="openModal()" class="text-xs text-[var(--gold-soft)] hover:text-white transition-colors bg-white/5 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1.5">
-      <i class="fa-regular fa-comment-dots text-[var(--gold)]"></i> Contact Us
-    </button>
-  </div>
-
-  <!-- Hero -->
-  <div class="flex flex-col items-center text-center max-w-sm w-full flex-1 flex justify-center">
-    <span class="badge mb-6"><span class="dot"></span>EXCLUSIVE ACCESS</span>
-    
-    <div class="relative mb-6">
-      <div class="logo-ring"></div>
-      <div class="logo-core">
-        <img src="KrishnaCrypto.jpeg" alt="Krishna Crypto Logo" id="profile-pic" onerror="this.src='logo.jpg'">
-      </div>
-    </div>
-
-    <h1 class="font-display font-extrabold text-3xl leading-tight">Krishna Crypto<sup class="text-sm text-[var(--gold)]">™</sup></h1>
-    <p class="font-display text-sm text-[var(--gold-soft)]/80 tracking-wide mt-1">OFFICIAL TELEGRAM CHANNEL</p>
-    <p class="text-sm text-white/50 mt-4 max-w-[280px]">Get daily crypto analysis, market trends, and high-accuracy trade setups.</p>
-
-    <!-- Stats -->
-    <div class="grid grid-cols-3 gap-3 w-full mt-8">
-      <div class="glass rounded-xl py-3 px-2 text-center">
-        <div class="stat-num" id="subscriberCount" data-count="7934">0</div>
-        <div class="text-[9px] text-white/50 uppercase mt-1">Subscribers</div>
-      </div>
-      <div class="glass rounded-xl py-3 px-2 text-center">
-        <div class="stat-num" data-count="99">0</div>
-        <div class="text-[9px] text-white/50 uppercase mt-1">% Accuracy</div>
-      </div>
-      <div class="glass rounded-xl py-3 px-2 text-center">
-        <div class="stat-num" data-count="1200">0</div>
-        <div class="text-[9px] text-white/50 uppercase mt-1">Setups/yr</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer / CTA -->
-  <div class="w-full max-w-sm mt-10">
-    <a href="https://t.me/+cxHVk09HbVNhNjI9" target="_blank" class="cta">
-      <i class="fa-brands fa-telegram text-xl"></i>
-      <span>Join Telegram Channel</span>
-      <i class="fa-solid fa-arrow-right text-xs opacity-80"></i>
-    </a>
-    <div class="flex justify-center gap-4 mt-4 text-[10px] text-white/40 uppercase tracking-wider">
-      <span><i class="fa-solid fa-bolt text-[var(--gold)] mr-1"></i> Live Signals</span>
-      <span><i class="fa-solid fa-shield-halved text-[var(--gold)] mr-1"></i> Verified</span>
-      <span><i class="fa-solid fa-gem text-[var(--gold)] mr-1"></i> Free Join</span>
-    </div>
-    
-    <!-- Footer Links including Contact Us -->
-    <p class="text-center text-[9px] text-white/30 mt-6">
-      © 2026 Krishna Crypto™. 
-      <a href="javascript:void(0)" onclick="openModal()" class="underline text-white/50 hover:text-white">Contact Us</a> · 
-      <a href="#" class="underline">Privacy Policy</a> · 
-      <a href="#" class="underline">Terms</a>
-    </p>
-  </div>
-
-  <!-- Contact Us Modal Popup -->
-  <div id="contactModal" class="modal-overlay px-6">
-    <div class="modal-box glass border border-white/10 p-6 rounded-2xl w-full max-w-sm text-center relative bg-[#0d0e15]/90">
-      <!-- Close Button -->
-      <button onclick="closeModal()" class="absolute top-4 right-4 text-white/40 hover:text-white text-lg w-8 h-8 rounded-full flex items-center justify-center bg-white/5">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div class="w-12 h-12 rounded-full bg-[var(--gold)]/10 border border-[var(--gold)]/30 flex items-center justify-center mx-auto mb-4 text-[var(--gold)] text-xl">
-        <i class="fa-solid fa-headset"></i>
-      </div>
-
-      <h3 class="font-display font-bold text-xl mb-1">Get In Touch</h3>
-      <p class="text-xs text-white/60 mb-6">Have questions or need assistance? Reach out directly to our admin team.</p>
-
-      <div class="space-y-3">
-        <!-- Direct Telegram Admin Support Link -->
-        <a href="https://t.me/+cxHVk09HbVNhNjI9" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[var(--gold)]/50 transition-all text-left">
-          <div class="w-9 h-9 rounded-lg bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-lg">
-            <i class="fa-brands fa-telegram"></i>
-          </div>
-          <div class="flex-1">
-            <div class="text-xs font-bold">Admin Support</div>
-            <div class="text-[10px] text-white/40">Direct Chat on Telegram</div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-xs text-white/30"></i>
-        </a>
-
-        <!-- Official Email Support -->
-        <a href="mailto:support@krishnacrypto.com" class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[var(--gold)]/50 transition-all text-left">
-          <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
-            <i class="fa-solid fa-envelope"></i>
-          </div>
-          <div class="flex-1">
-            <div class="text-xs font-bold">Official Email</div>
-            <div class="text-[10px] text-white/40">support@krishnacrypto.com</div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-xs text-white/30"></i>
-        </a>
-      </div>
-
-      <p class="text-[10px] text-white/30 mt-6"><i class="fa-solid fa-clock text-[var(--gold)] mr-1"></i> Average Response Time: &lt; 15 mins</p>
-    </div>
-  </div>
-
-<script>
-  const container = document.getElementById('starsContainer');
-
-  // 1. Generate Stars Background (40 Dynamic Stars)
-  for(let i = 0; i < 40; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.left = Math.random() * 100 + '%';
-    const size = (1.5 + Math.random() * 2.5) + 'px';
-    star.style.width = size;
-    star.style.height = size;
-    star.style.setProperty('--duration', (2 + Math.random() * 4) + 's');
-    star.style.setProperty('--opacity', 0.2 + Math.random() * 0.6);
-    star.style.animationDelay = (Math.random() * 3) + 's';
-    container.appendChild(star);
-  }
-
-  // 2. Rising Gold Particles (15 Floating Gold Dots)
-  for(let i = 0; i < 15; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    const pSize = (2 + Math.random() * 2.5) + 'px';
-    p.style.width = pSize;
-    p.style.height = pSize;
-    p.style.animationDuration = (7 + Math.random() * 8) + 's';
-    p.style.animationDelay = (Math.random() * 5) + 's';
-    container.appendChild(p);
-  }
-
-  // 3. Initial Counter Animation
-  let currentSubscribers = 7934;
-  const subElement = document.getElementById('subscriberCount');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting) {
-        const el = e.target;
-        const target = +el.dataset.count;
-        const duration = 1500;
-        const startTime = performance.now();
-        function step(now) {
-          const p = Math.min((now - startTime) / duration, 1);
-          const val = Math.floor(p * target);
-          el.textContent = val >= 1000 ? (val/1000).toFixed(1).replace('.0','') + 'K' : val;
-          if(p < 1) requestAnimationFrame(step);
-          else startLiveSubscriberEvent();
-        }
-        requestAnimationFrame(step);
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
-
-  // 4. Dynamic Live Subscriber Count Event
-  function startLiveSubscriberEvent() {
-    function updateSubscriber() {
-      currentSubscribers += Math.floor(Math.random() * 3) + 1;
-      const formatted = (currentSubscribers / 1000).toFixed(1).replace('.0', '') + 'K';
-      
-      subElement.textContent = formatted;
-      subElement.classList.add('sub-pulse');
-
-      setTimeout(() => {
-        subElement.classList.remove('sub-pulse');
-      }, 500);
-
-      const nextInterval = Math.floor(Math.random() * 4000) + 3000;
-      setTimeout(updateSubscriber, nextInterval);
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    setTimeout(updateSubscriber, 3000);
-  }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      background-color: #03080c;
+      position: relative;
+      overflow-x: hidden;
+      padding: 20px 0;
+    }
 
-  // 5. Modal Popup Controls
-  const modal = document.getElementById('contactModal');
+    /* Animated Background Container */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
 
-  function openModal() {
-    modal.classList.add('active');
-  }
+    /* Grid Line Movement */
+    .grid-overlay {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridMove 20s linear infinite;
+    }
 
-  function closeModal() {
-    modal.classList.remove('active');
-  }
+    @keyframes gridMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(40px); }
+    }
 
-  // Close modal when clicking outside the box
-  modal.addEventListener('click', (e) => {
-    if(e.target === modal) closeModal();
-  });
-</script>
+    /* Wave Line Animation */
+    .chart-wave {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.4;
+    }
+
+    .wave-path {
+      fill: none;
+      stroke: #ff0055;
+      stroke-width: 3;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dash 4s ease-in-out infinite alternate, glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes dash {
+      from { stroke-dashoffset: 1000; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 2px #ff0055); }
+      to { filter: drop-shadow(0 0 8px #ff0055); }
+    }
+
+    /* Pulsing Green Candlesticks */
+    .candlestick {
+      animation: pulseBar 1.5s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseBar {
+      0% { opacity: 0.3; transform: scaleY(0.95); }
+      100% { opacity: 0.7; transform: scaleY(1.05); }
+    }
+
+    /* Layer Container Styling */
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 410px;
+      padding: 24px 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(3, 8, 12, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      margin-bottom: 15px;
+    }
+
+    .main-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .logo-container {
+      margin-bottom: 12px;
+    }
+
+    .logo-circle {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      border: 3.5px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #000000;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .timer {
+      font-size: 90px;
+      font-weight: 900;
+      color: #00e611;
+      line-height: 1;
+      margin: 8px 0 22px 0;
+      text-shadow: 0 0 20px rgba(0, 230, 17, 0.6);
+    }
+
+    .features-list {
+      list-style: none;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .features-list li {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .features-list .sub-heading {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #d1d5db;
+      margin-top: -4px;
+      margin-bottom: 12px;
+    }
+
+    .features-list .highlight-text {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .promo-banner {
+      border: 1.5px solid #ff0000;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 9px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .promo-banner a {
+      color: #ff4d4d;
+      text-decoration: underline;
+    }
+
+    .cta-button {
+      display: block;
+      width: 100%;
+      background-color: #00ff1a;
+      color: #000000;
+      font-size: 22px;
+      font-weight: 900;
+      text-decoration: none;
+      padding: 16px 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(0, 255, 26, 0.6);
+      cursor: pointer;
+      border: none;
+      transition: transform 0.1s ease;
+    }
+
+    .cta-button:active {
+      transform: scale(0.98);
+    }
+
+    /* Footer Links */
+    .footer-links {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .footer-links a {
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #00ff1a;
+    }
+
+    /* Modals / Popups */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 10;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #0b141a;
+      border: 1px solid #00ff1a;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+      color: #ddd;
+      position: relative;
+      text-align: left;
+    }
+
+    .modal-content h3 {
+      color: #00ff1a;
+      margin-bottom: 10px;
+    }
+
+    .modal-content p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Animation -->
+  <div class="bg-animation">
+    <div class="grid-overlay"></div>
+    
+    <svg class="chart-wave" viewBox="0 0 400 800" preserveAspectRatio="none">
+      <g class="candlestick" style="animation-delay: 0s;">
+        <rect x="60" y="250" width="10" height="150" fill="#00e611" />
+        <line x1="65" y1="200" x2="65" y2="430" stroke="#00e611" stroke-width="2" />
+      </g>
+
+      <g class="candlestick" style="animation-delay: 0.5s;">
+        <rect x="180" y="380" width="10" height="200" fill="#00e611" />
+        <line x1="185" y1="320" x2="185" y2="610" stroke="#00e611" stroke-width="2" />
+      </g>
+
+      <g class="candlestick" style="animation-delay: 1s;">
+        <rect x="300" y="180" width="10" height="280" fill="#00e611" />
+        <line x1="305" y1="120" x2="305" y2="500" stroke="#00e611" stroke-width="2" />
+      </g>
+
+      <path class="wave-path" d="M 0 550 Q 80 300, 160 500 T 320 250 T 400 150" />
+      
+      <text x="280" y="220" fill="#ffffff" opacity="0.1" font-size="32" font-weight="bold">22.10</text>
+      <text x="70" y="680" fill="#ffffff" opacity="0.1" font-size="32" font-weight="bold">10.75</text>
+    </svg>
+  </div>
+
+  <!-- MAIN LANDING PAGE CONTAINER -->
+  <div class="container">
+    <h1 class="main-title">Krishna Crypto</h1>
+
+    <div class="logo-container">
+      <div class="logo-circle">
+        <img src="KrishnaCrypto.jpeg" alt="Logo" class="logo-img">
+      </div>
+    </div>
+
+    <div class="timer" id="countdown">5</div>
+
+    <ul class="features-list">
+      <li>✅ SMC, Gold Forex, BTC Setups 🏆</li>
+      <li class="sub-heading">TODAY'S MARKET RESULTS</li>
+      <li>✅ Smart money Strategies $ tips</li>
+      <li style="margin-top: 6px;">🏆</li>
+      <li>✅ 5/5 EXPERT TRADING INSIGHTS TODAY</li>
+      <li class="highlight-text">Risk Management Guidancess 🏆</li>
+    </ul>
+
+    <div class="promo-banner">
+      📢 PAID PROMOTION: <a href="https://t.me/+JP96Y2n0U8xiZWI1" target="_blank">@Digital Ads Experts</a>
+    </div>
+
+    <a href="https://t.me/+q1T2QjUAJPE5NWE1" class="cta-button" target="_blank">
+      JOIN FREE CHANNEL 🚀
+    </a>
+  </div>
+
+  <!-- Footer Info Links -->
+  <div class="footer-links">
+    <a href="javascript:void(0)" onclick="openModal('modal-about')">About Us</a> | 
+    <a href="javascript:void(0)" onclick="openModal('modal-terms')">Terms</a> | 
+    <a href="javascript:void(0)" onclick="openModal('modal-disclaimer')">Disclaimer</a> | 
+    <a href="javascript:void(0)" onclick="openModal('modal-contact')">Contact Us</a>
+  </div>
+
+  <!-- MODALS / POPUPS -->
+  <div class="modal" id="modal-about">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-about')">&times;</span>
+      <h3>About Us</h3>
+      <p>Krishna Crypto provides expert market insights, Smart Money Concept (SMC) setups, and educational tips for Forex, Gold, and BTC traders worldwide.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-terms">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-terms')">&times;</span>
+      <h3>Terms & Conditions</h3>
+      <p>By using our services, you agree that trading carries risks. All predictions and setups shared are for educational purposes only and not financial advice.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-disclaimer">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-disclaimer')">&times;</span>
+      <h3>Disclaimer</h3>
+      <p>Trading Forex, Crypto, and Stocks involves high risk. Never risk money you cannot afford to lose. Past performance does not guarantee future results.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-contact">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-contact')">&times;</span>
+      <h3>Contact Us</h3>
+      <p>For promos, support, or inquiries, reach out to us via Telegram support or through our official promotion partner link above.</p>
+    </div>
+  </div>
+
+  <script>
+    // Countdown timer auto-starts on page load
+    window.onload = function() {
+      startTimer();
+    };
+
+    function startTimer() {
+      let timeLeft = 5;
+      const timerElement = document.getElementById('countdown');
+
+      const interval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft >= 0) {
+          timerElement.textContent = timeLeft;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
 </body>
 </html>
